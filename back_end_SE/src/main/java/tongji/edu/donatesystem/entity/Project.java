@@ -43,5 +43,6 @@ public class Project implements Serializable {
 
     private String status; //"已结题","筹款中","审核中"
 
+    private String pInfo; //项目简介
 
 }
