@@ -56,6 +56,13 @@ public class DonateServiceImpl extends ServiceImpl<DonateMapper, Donate> impleme
     }
 
     @Override
+    public Donate findDonatebyTradeNo(String outTradeNo) {
+        QueryWrapper wrapper = new QueryWrapper();
+        wrapper.eq("out_trade_no",outTradeNo);
+        return mapper.selectOne(wrapper);
+    }
+
+    @Override
     public void updateDonate(Donate donate) {
        mapper.update(donate,null);
     }

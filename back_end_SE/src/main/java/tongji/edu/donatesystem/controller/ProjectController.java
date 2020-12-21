@@ -15,7 +15,9 @@ import tongji.edu.common.lang.Result;
 import tongji.edu.donatesystem.entity.Account;
 import tongji.edu.donatesystem.entity.Project;
 import tongji.edu.donatesystem.service.AccountService;
+import tongji.edu.donatesystem.service.InfoService;
 import tongji.edu.donatesystem.service.ProjectService;
+import tongji.edu.donatesystem.service.ReportService;
 
 import java.io.File;
 import java.io.IOException;
@@ -37,6 +39,8 @@ import java.util.UUID;
 public class ProjectController {
     @Autowired
     private ProjectService projectService;
+    @Autowired
+    private ReportService reportService;
     @Value("F:\\IdeaProjects\\back_end_SE\\src\\main\\resources\\static\\photos")
     private String realPath; //头像保存地址
     @PostMapping("save")
@@ -47,6 +51,8 @@ public class ProjectController {
             // 保存用户信息
             project.setPPath(newFileName);
             projectService.save(project);
+            reportService.addStartCommit(project.getPId(),project.getPUser());
+            //发布提交审核
             return Result.succ("发布募捐项目成功！");
         } catch (Exception e) {
             e.printStackTrace();
@@ -58,16 +64,33 @@ public class ProjectController {
         return projectService.findLike(pname);
     }
     @PostMapping("delete")
-    public Map<String , Object> delete(String id){
+    public Map<String , Object> delete(int id){
         try {
             projectService.deleteProject(id);
             return Result.succ("撤回项目成功！");
         } catch (Exception e) {
             e.printStackTrace();
-            return Result.fail("撤回项目失败！");
+            return Result.fail("撤回项目失败,"+e.getMessage());
         }
     }
-
+    @PostMapping("recall")
+    public Map<String , Object> recall(int id){
+        try {
+            projectService.recall(id);
+            return Result.succ("提交结束项目审核成功！");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Result.fail("提交结束项目审核失败,"+e.getMessage());
+        }
+    }
+    @PostMapping("findAll")
+    public Map<String , Object> findAll(){
+        return Result.succ("查询项目列表成功！",projectService.findAll());
+    }
+    @PostMapping("findHelp")
+    public Map<String , Object> findHelp(String id){
+        return Result.succ("查询项目辅助证明成功！",reportService.findHelp(id));
+    }
 
 }
 

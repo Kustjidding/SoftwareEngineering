@@ -21,6 +21,8 @@ public interface DonateService extends IService<Donate> {
     void deleteDonate(String id); //删除募捐记录
     List<Donate> findDonatebyUid(String uid); //根据捐助者查询募捐记录
     List<Donate> findDonatebyPid(String pid); //根据项目编号查询募捐记录
+    Donate findDonatebyTradeNo(String outTradeNo); //根据订单号查询募捐记录
     void updateDonate(Donate donate); //更改项目
+
 
 }

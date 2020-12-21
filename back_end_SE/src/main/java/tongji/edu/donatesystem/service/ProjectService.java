@@ -4,6 +4,7 @@ import tongji.edu.donatesystem.entity.Account;
 import tongji.edu.donatesystem.entity.Project;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import javax.print.DocFlavor;
 import java.util.List;
 
 /**
@@ -17,8 +18,10 @@ import java.util.List;
 public interface ProjectService extends IService<Project> {
     List<Project> findAll();
     void saveProject(Project project); //发起募捐
-    void deleteProject(String id);
-    Project findOneProject(String id);
+    void deleteProject(int id);
+    Project findOneProject(int id);
     List<Project> findLike(String pname); //根据输入内容进行模糊查询
     void updateProject(Project project);
+    void recall(int id); //筹款人申请撤回项目，并拿回款项
+    void donateProject(int id,String amount); //捐款
 }

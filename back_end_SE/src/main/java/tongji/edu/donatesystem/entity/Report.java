@@ -23,15 +23,17 @@ import lombok.experimental.Accessors;
 public class Report implements Serializable {
 
     private static final long serialVersionUID=1L;
-
-      private String rUser;
+    private Integer reportId;
+    private String rUser;
 
     private Integer rProject;
 
     private String reason;
 
-    private Integer type; // 0表示提交审核，1表示延期审核，2表示结题审核，3表示证明报告
+    private Integer type; // 0表示提交审核，1表示延期审核，2表示结题审核，3表示证明报告, 4表示停止审核
+
     private LocalDateTime changeTime; //延期审核要延期的日期
+    private Integer isPass;//是否审核通过
 
 
 

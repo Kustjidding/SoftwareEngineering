@@ -41,7 +41,7 @@ public class Project implements Serializable {
 
     private Float current;
 
-    private String status; //"已结题","筹款中","审核中"
+    private String status; //"已结题","筹款中","审核中","已取消"
 
     private String pInfo; //项目简介
 
